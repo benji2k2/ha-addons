@@ -1,0 +1,67 @@
+# eufy-sdk bridge, lokal gebaut aus benji2k2/ha-eufy-sdk-bridge (Zweig deploy/local).
+#
+# Grundlage ist das Dev-Add-on von mega-yfue/ha-eufy-sdk-addon (MIT). Unterschiede:
+# - Kein `image:`. Der Supervisor baut das Abbild selbst auf dem HA-Host (buildx), aus dem
+#   Commit, der in build.yaml festgenagelt ist. Kein GitHub Actions, keine Registry.
+# - Sitzung, Push-Registrierung und Ereignisbilder liegen in /config (= app_config), also
+#   auf dem Host unter /app_configs/<slug>/. So lässt sich ein bestehender Datenordner
+#   übernehmen, ohne neue Anmeldung.
+# - Option `openudid` für eine feste Gerätekennung, `env_vars` für weitere Bridge-Variablen.
+# - Ports ab Werk nicht auf dem Host veröffentlicht. HA erreicht die Bridge über das
+#   interne Docker-Netz (<hostname>:3000, RTSP <hostname>:8554).
+#
+# Nie gleichzeitig mit einer zweiten Bridge am selben eufy-Konto laufen lassen.
+name: eufy-sdk bridge (lokal)
+version: "0.3.0-local.1"
+slug: eufy_sdk_bridge_local
+description: ha-eufy-sdk bridge, auf dem HA-Host gebaut aus dem Fork benji2k2 (deploy/local).
+url: "https://github.com/benji2k2/ha-addons/tree/main/eufy_sdk_bridge_local"
+arch:
+  - amd64
+  - aarch64
+init: false
+startup: services
+boot: manual
+hassio_api: true
+discovery:
+  - eufy_sdk
+map:
+  - app_config:rw
+ingress: true
+ingress_port: 3000
+panel_icon: mdi:cctv
+ports:
+  3000/tcp: null
+  8554/tcp: null
+ports_description:
+  3000/tcp: Bridge WS + HTTP (nur nötig, wenn etwas außerhalb von HA zugreifen soll)
+  8554/tcp: RTSP (nur nötig für Zugriff von außerhalb HA)
+options:
+  email: ""
+  password: ""
+  country: DE
+  openudid: ""
+  poll_ms: 600000
+  stream_idle_ms: 300000
+  rtsp_idle_off_ms: 300000
+  prewarm: false
+  event_log: true
+  debug: false
+  debug_p2p: false
+  env_vars: []
+schema:
+  email: str
+  password: password
+  country: str
+  # Feste Gerätekennung (BRIDGE_OPENUDID). Leer = die Bridge leitet sie aus der E-Mail ab.
+  openudid: "str?"
+  poll_ms: int(0,)
+  stream_idle_ms: int(0,)
+  rtsp_idle_off_ms: int(0,)
+  prewarm: bool
+  event_log: bool
+  debug: bool
+  debug_p2p: bool
+  # Weitere Bridge-Variablen als NAME=WERT, z. B. STREAM_BATTERY_BUDGET_MS=180000.
+  env_vars:
+    - match(^[A-Z][A-Z0-9_]*=.*$)

@@ -1,0 +1,17 @@
+# Der Supervisor baut dieses Abbild selbst. Für ein Update:
+#   1. BRIDGE_REF auf den neuen Commit von deploy/local setzen,
+#   2. version in config.yaml hochzählen, pushen,
+#   3. in HA die App aktualisieren (baut neu).
+build_from:
+  amd64: node:24-alpine
+  aarch64: node:24-alpine
+args:
+  BRIDGE_REPO: https://github.com/benji2k2/ha-eufy-sdk-bridge.git
+  # deploy/local, Stand 22.09.2026 (Merge feat/snapshot-disk-fallback)
+  BRIDGE_REF: 0944fd2e53501b9d0114cc836ab174cf8c24e4ce
+  # SDK 0.2.0-beta.25 plus HomeBase-3-Sirene (mega-yfue/eufy-sdk#222). Leer = das im
+  # Lockfile festgelegte SDK, "beta" = neueste Beta von npm.
+  SDK_DIST_TAG: https://github.com/benji2k2/ha-eufy-sdk-bridge/releases/download/sdk-hb3-test-1/mega-yfue-eufy-sdk-0.2.0-beta.25-hb3.1.tgz
+  GO2RTC_VERSION: "1.9.9"
+labels:
+  org.opencontainers.image.source: "https://github.com/benji2k2/ha-addons"

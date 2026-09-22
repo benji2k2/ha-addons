@@ -1,0 +1,40 @@
+configuration:
+  email:
+    name: eufy-E-Mail
+    description: E-Mail des eufy-Kontos, mit dem sich die Bridge anmeldet.
+  password:
+    name: eufy-Passwort
+    description: Passwort des eufy-Kontos.
+  country:
+    name: Ländercode
+    description: Zweistelliger Ländercode des Kontos (DE, GB, US), bestimmt die eufy-Region.
+  openudid:
+    name: Gerätekennung (openudid)
+    description: Feste Kennung, mit der sich die Bridge bei eufy meldet. Bei einem Umzug denselben Wert wie vorher eintragen, sonst gilt die Bridge als neues Gerät. Leer = aus der E-Mail abgeleitet.
+  poll_ms:
+    name: Abfrageintervall (ms)
+    description: Wie oft die Bridge den Gerätezustand aus der Cloud liest. 0 schaltet das Abfragen ab.
+  stream_idle_ms:
+    name: Stream-Leerlauf (ms)
+    description: Livebild einer Kamera nach so langer Zeit ohne Erkennung beenden. 0 = nie.
+  rtsp_idle_off_ms:
+    name: RTSP-Leerlauf Akkukameras (ms)
+    description: Natives RTSP einer Akkukamera nach so langer Zeit ohne Nutzung abschalten. 0 = nie.
+  prewarm:
+    name: Vorwärmen
+    description: P2P bei Klingeln/Person vorsorglich öffnen. Schneller, kostet Akku.
+  event_log:
+    name: Ereignis-Log
+    description: Eine Logzeile pro Push-Ereignis.
+  debug:
+    name: Debug
+    description: Ausführliches Log.
+  debug_p2p:
+    name: Debug P2P
+    description: Zusätzlich die P2P-Rohdaten loggen (sehr viel).
+  env_vars:
+    name: Weitere Variablen
+    description: Beliebige Bridge-Variablen als NAME=WERT, eine pro Eintrag, z. B. STREAM_BATTERY_BUDGET_MS=180000.
+network:
+  3000/tcp: Bridge WS + HTTP (nur für Zugriff von außerhalb HA)
+  8554/tcp: RTSP (nur für Zugriff von außerhalb HA)

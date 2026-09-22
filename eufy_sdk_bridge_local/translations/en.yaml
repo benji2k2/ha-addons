@@ -1,0 +1,40 @@
+configuration:
+  email:
+    name: eufy email
+    description: Email of the eufy account the bridge logs in with.
+  password:
+    name: eufy password
+    description: Password of that eufy account.
+  country:
+    name: Country code
+    description: Two-letter account country (DE, GB, US), selects the eufy region.
+  openudid:
+    name: Device id (openudid)
+    description: Fixed id the bridge presents to eufy. Keep the previous value when migrating, otherwise the bridge registers as a new device. Empty = derived from the email.
+  poll_ms:
+    name: Poll interval (ms)
+    description: How often the bridge re-reads device state from the cloud. 0 disables polling.
+  stream_idle_ms:
+    name: Stream idle (ms)
+    description: Stop a camera's live feed after this long without detection. 0 = never.
+  rtsp_idle_off_ms:
+    name: Battery RTSP idle (ms)
+    description: Turn a battery camera's native RTSP off after this long unused. 0 = never.
+  prewarm:
+    name: Prewarm
+    description: Open P2P speculatively on doorbell/person events. Faster, costs battery.
+  event_log:
+    name: Event log
+    description: One log line per push event.
+  debug:
+    name: Debug
+    description: Verbose logging.
+  debug_p2p:
+    name: Debug P2P
+    description: Also log raw P2P transport (very noisy).
+  env_vars:
+    name: Extra variables
+    description: Any bridge environment variable as NAME=VALUE, one per entry, e.g. STREAM_BATTERY_BUDGET_MS=180000.
+network:
+  3000/tcp: Bridge WS + HTTP (only for access from outside HA)
+  8554/tcp: RTSP (only for access from outside HA)
