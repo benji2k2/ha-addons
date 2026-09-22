@@ -2,9 +2,12 @@
 #   1. BRIDGE_REF auf den neuen Commit von deploy/local setzen,
 #   2. version in config.yaml hochzählen, pushen,
 #   3. in HA die App aktualisieren (baut neu).
+#
+# build_from braucht einen Namensraum (library/…). Ein nackter Name wie node:24-alpine fällt
+# durch die Prüfung des Supervisors, der dann die GANZE Datei ignoriert, samt args.
 build_from:
-  amd64: node:24-alpine
-  aarch64: node:24-alpine
+  amd64: docker.io/library/node:24-alpine
+  aarch64: docker.io/library/node:24-alpine
 args:
   BRIDGE_REPO: https://github.com/benji2k2/ha-eufy-sdk-bridge.git
   # deploy/local, Stand 22.09.2026 (Merge feat/snapshot-disk-fallback)

@@ -7,7 +7,7 @@
 #
 # Ändert sich das Dockerfile der Bridge (z. B. go2rtc-Version, neue Laufzeitdateien), muss
 # dieses hier nachgezogen werden.
-ARG BUILD_FROM=node:24-alpine
+ARG BUILD_FROM=docker.io/library/node:24-alpine
 FROM ${BUILD_FROM}
 
 RUN apk add --no-cache ffmpeg curl jq
@@ -27,7 +27,7 @@ RUN case "${TARGETARCH:-amd64}" in \
 # Quelltext auf dem festen Commit. GitHub erlaubt das Holen eines einzelnen Commits per SHA.
 ARG BRIDGE_REPO=https://github.com/benji2k2/ha-eufy-sdk-bridge.git
 ARG BRIDGE_REF
-RUN test -n "$BRIDGE_REF" \
+RUN { [ -n "$BRIDGE_REF" ] || { echo "BRIDGE_REF fehlt: build.yaml wurde nicht gelesen"; exit 1; }; } \
  && apk add --no-cache --virtual .fetch git \
  && git init -q /tmp/src \
  && git -C /tmp/src fetch -q --depth 1 "$BRIDGE_REPO" "$BRIDGE_REF" \
