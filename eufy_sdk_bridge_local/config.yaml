@@ -12,7 +12,7 @@
 #
 # Nie gleichzeitig mit einer zweiten Bridge am selben eufy-Konto laufen lassen.
 name: eufy-sdk bridge (lokal)
-version: "0.3.0-local.3"
+version: "0.3.0-local.4"
 slug: eufy_sdk_bridge_local
 description: ha-eufy-sdk bridge, auf dem HA-Host gebaut aus dem Fork benji2k2 (deploy/local).
 url: "https://github.com/benji2k2/ha-addons/tree/main/eufy_sdk_bridge_local"

@@ -10,8 +10,9 @@ build_from:
   aarch64: docker.io/library/node:24-alpine
 args:
   BRIDGE_REPO: https://github.com/benji2k2/ha-eufy-sdk-bridge.git
-  # deploy/local, Stand 23.09.2026 = dev (alle Bridge-PRs gemergt) + Patch 2 (feat/stream-wait-for-first-data)
-  BRIDGE_REF: a85939c8c067a3038c19892052a8d88eb1443cd3
+  # deploy/local = mega-yfue dev (c1c0e73, 23.09.2026: alle unsere PRs + #69 Kanal-Diagnose), ohne Patch 2.
+  # Patch 2 liegt weiter als Zweig feat/stream-wait-for-first-data im Fork (nach Probetag entfernt).
+  BRIDGE_REF: c1c0e7372e3c5dff25844edb0d291caa00bfa3b5
   # SDK 0.2.0-beta.25 plus HomeBase-3-Sirene (mega-yfue/eufy-sdk#222). Leer = das im
   # Lockfile festgelegte SDK, "beta" = neueste Beta von npm.
   SDK_DIST_TAG: https://github.com/benji2k2/ha-eufy-sdk-bridge/releases/download/sdk-hb3-test-1/mega-yfue-eufy-sdk-0.2.0-beta.25-hb3.1.tgz
