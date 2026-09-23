@@ -51,6 +51,11 @@ RUN npm ci --omit=dev --no-audit --no-fund \
  && node -e "console.log('SDK:', require('/app/node_modules/@mega-yfue/eufy-sdk/package.json').version)" \
  && npm cache clean --force
 
+# Diagnose (nur mit SDK_FRAME_LOG=1 in build.yaml): eingehende P2P-Pakete der Station mitloggen.
+ARG SDK_FRAME_LOG=
+COPY sdk-frame-log.mjs /tmp/sdk-frame-log.mjs
+RUN if [ -n "$SDK_FRAME_LOG" ]; then node /tmp/sdk-frame-log.mjs; fi && rm -f /tmp/sdk-frame-log.mjs
+
 RUN chmod +x bin/start.sh && ln -sf /app/bin/start.sh /usr/local/bin/eufy-sdk-bridge
 
 ENV BRIDGE_APP_DIR=/app BRIDGE_PORT=3000 BRIDGE_HOST=0.0.0.0 \
