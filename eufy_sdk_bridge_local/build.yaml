@@ -9,13 +9,15 @@ build_from:
   amd64: docker.io/library/node:24-alpine
   aarch64: docker.io/library/node:24-alpine
 args:
-  # Test für mega-yfue/eufy-sdk#222/#242 (30.09.2026): offizielle Bridge dev (#82, 497eb7d) + SDK 0.4.0-beta.13
-  # (enthält #242, HomeBase-3-Sirene). Voriger Stand (0.3.0-local.4): Fork benji2k2 deploy/local c1c0e73 +
-  # Tarball sdk-hb3-test-1 (0.2.0-beta.25-hb3.1) – zum Zurückgehen diese drei Werte wiederherstellen.
-  BRIDGE_REPO: https://github.com/mega-yfue/ha-eufy-sdk-bridge.git
-  BRIDGE_REF: 497eb7d2e77e49e375866b098e73cf6f003ef758
+  # Test Stream-Lebenszyklus (03.10.2026, mega-yfue/ha-eufy-sdk-bridge Issue 86): Fork benji2k2
+  # fix/stream-lifecycle (968ffab) = offizielles dev (ac95e6d) + Fix. SDK aus dem Lockfile (0.2.0) wie beim
+  # offiziellen Add-on 0.4.0, damit der Vergleich nur den Fix misst.
+  # Voriger Stand (0.4.0-local.1, Sirenentest 30.09.): mega-yfue 497eb7d + SDK_DIST_TAG "0.4.0-beta.13".
+  # Davor (0.3.0-local.4): Fork deploy/local c1c0e73 + Tarball sdk-hb3-test-1 (0.2.0-beta.25-hb3.1).
+  BRIDGE_REPO: https://github.com/benji2k2/ha-eufy-sdk-bridge.git
+  BRIDGE_REF: 968ffab6263f8f6468949bd67bc534b9366cb298
   # Leer = das im Lockfile festgelegte SDK, "beta" = neueste Beta von npm, sonst Version oder Tarball-URL.
-  SDK_DIST_TAG: "0.4.0-beta.13"
+  SDK_DIST_TAG: ""
   GO2RTC_VERSION: "1.9.9"
   # Diagnose: eingehende P2P-Pakete der Station loggen (siehe sdk-frame-log.mjs). Leer = aus.
   SDK_FRAME_LOG: ""
